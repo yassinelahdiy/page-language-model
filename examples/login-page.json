@@ -1,7 +1,7 @@
 {
   "page": "LoginPage",
   "url": "/login",
-  "description": "Login screen for users to access the application. Includes email and password fields, with validation and redirect on success.",
+  "description": "Login screen for users to access the application. Includes input fields, basic validation, and success/error flows.",
   "components": [
     {
       "id": "emailInput",
@@ -12,7 +12,7 @@
       "exampleInput": "jon@example.com",
       "description": "User's login email address. Must follow standard email format.",
       "intent": "Capture the user's email for login",
-      "llm_hint": "Only enable submit button when both fields are valid",
+      "llm_hint": "Do not enable submit button unless this and password are valid.",
       "locator": "#email"
     },
     {
@@ -22,19 +22,20 @@
       "required": true,
       "validation": "minimum 8 characters",
       "exampleInput": "mypassword123",
-      "description": "User's account password. Minimum length required.",
-      "intent": "Capture the password securely for authentication",
+      "description": "User's password used for authentication.",
+      "intent": "Collect password securely for login",
+      "llm_hint": "Should be masked. Submit button should not enable if this is empty.",
       "locator": "#password"
     },
     {
       "id": "loginButton",
       "type": "button",
       "label": "Log In",
+      "enabled_condition": "emailInput and passwordInput are valid",
       "action": "submitLoginForm",
       "transitionsTo": "DashboardPage",
-      "enabled_condition": "emailInput and passwordInput are valid",
-      "description": "Submits the login form. Redirects to dashboard on success.",
-      "llm_hint": "Should be disabled until both input fields are filled and valid",
+      "description": "Submits the login form and redirects on success.",
+      "llm_hint": "Disable this button unless inputs are filled and valid.",
       "locator": "button[type='submit']"
     },
     {
@@ -42,7 +43,7 @@
       "type": "link",
       "label": "Forgot Password?",
       "transitionsTo": "ForgotPasswordPage",
-      "description": "Navigates to password recovery flow.",
+      "description": "Opens password recovery flow.",
       "locator": "a[href='/forgot-password']"
     }
   ]
