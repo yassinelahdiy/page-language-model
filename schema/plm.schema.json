@@ -1,0 +1,40 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Page Language Model",
+  "type": "object",
+  "required": ["page", "components"],
+  "properties": {
+    "page": {
+      "type": "string",
+      "description": "The name of the page"
+    },
+    "url": {
+      "type": "string",
+      "description": "The URL or route pattern for this page"
+    },
+    "components": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "type"],
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Unique identifier for the component"
+          },
+          "type": {
+            "type": "string",
+            "enum": ["input", "button", "link", "select", "checkbox", "form", "modal"],
+            "description": "Type of the component"
+          },
+          "label": { "type": "string" },
+          "required": { "type": "boolean" },
+          "validation": { "type": "string" },
+          "action": { "type": "string" },
+          "transitionsTo": { "type": "string" },
+          "locator": { "type": "string" }
+        }
+      }
+    }
+  }
+}
