@@ -1,0 +1,93 @@
+{
+  "page": "DashboardPage",
+  "url": "/dashboard",
+  "description": "Main user dashboard after login. Displays a welcome message, sidebar navigation, and a list of recent deals. Includes a button to create a new deal, triggering a modal form.",
+  "components": [
+    {
+      "id": "sidebarNav",
+      "type": "sidebar",
+      "description": "Left navigation sidebar with links to key sections.",
+      "nav_items": [
+        {
+          "id": "nav_home",
+          "label": "Home",
+          "icon": "home",
+          "target_url": "/dashboard",
+          "intent": "Return to dashboard home"
+        },
+        {
+          "id": "nav_deals",
+          "label": "My Deals",
+          "icon": "briefcase",
+          "target_url": "/deals",
+          "intent": "View list of deals"
+        },
+        {
+          "id": "nav_profile",
+          "label": "Profile",
+          "icon": "user",
+          "target_url": "/profile",
+          "intent": "Go to account settings"
+        }
+      ]
+    },
+    {
+      "id": "welcomeMessage",
+      "type": "text",
+      "value_binding": "Welcome back, {{user_first_name}}!",
+      "description": "Personalized greeting using user's first name.",
+      "llm_hint": "Dynamically rendered from logged-in user context"
+    },
+    {
+      "id": "createDealButton",
+      "type": "button",
+      "label": "Create New Deal",
+      "action": {
+        "type": "open_modal",
+        "target_id": "createDealModal"
+      },
+      "description": "Opens modal to begin deal creation flow.",
+      "intent": "Start a new deal process"
+    },
+    {
+      "id": "recentDealsList",
+      "type": "card_list",
+      "binding": "recentDeals",
+      "description": "Displays cards for user's recent deals, pulled from API.",
+      "llm_hint": "Dynamically populated list, may be empty on first login"
+    },
+    {
+      "id": "createDealModal",
+      "type": "modal",
+      "variant": "form",
+      "description": "Modal containing the form to create a new deal",
+      "fields": [
+        {
+          "id": "deal_name",
+          "type": "input",
+          "label": "Deal Name",
+          "required": true,
+          "exampleInput": "Spring Promo - Midwest",
+          "intent": "Name the new deal"
+        },
+        {
+          "id": "funding_type",
+          "type": "select",
+          "label": "Funding Type",
+          "options": ["Loan", "Lease"],
+          "required": true,
+          "intent": "Choose how the deal will be structured"
+        }
+      ],
+      "actions": {
+        "on_submit": {
+          "type": "create_deal",
+          "transitionsTo": "DealDetailsPage"
+        },
+        "on_cancel": {
+          "type": "close_modal"
+        }
+      }
+    }
+  ]
+}
