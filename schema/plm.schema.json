@@ -25,10 +25,7 @@
           "id": { "type": "string" },
           "type": {
             "type": "string",
-            "enum": [
-              "input", "button", "link", "select", "checkbox",
-              "form", "modal", "text", "icon_button", "numeric_input"
-            ]
+            "description": "Type of the component (custom or standard)"
           },
           "label": { "type": "string" },
           "required": { "type": "boolean" },

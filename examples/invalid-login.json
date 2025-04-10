@@ -1,0 +1,15 @@
+{
+    "page": "LoginPage",
+    "url": "/login",
+    "components": [
+      {
+        "id": "emailInput",
+        "label": "Email"
+      },
+      {
+        "id": "passwordInput",
+        "type": "input"
+      }
+    ]
+  }
+  
