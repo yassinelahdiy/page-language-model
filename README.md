@@ -103,6 +103,10 @@ PLM was created in 2025 by Jonathan Miller as a new standard to bridge the gap b
 
 ---
 
+👉 See [`docs/README.md`](docs/README.md) for the full PLM spec and advanced usage.
+
+---
+
 ## 📜 License
 
 MIT License — free to use, modify, and build on.  
