@@ -1,0 +1,37 @@
+{
+  "page": "LoginPage",
+  "url": "/login",
+  "components": [
+    {
+      "id": "emailInput",
+      "type": "input",
+      "label": "Email",
+      "required": true,
+      "validation": "must be a valid email address",
+      "locator": "#email"
+    },
+    {
+      "id": "passwordInput",
+      "type": "input",
+      "label": "Password",
+      "required": true,
+      "validation": "must be at least 8 characters",
+      "locator": "#password"
+    },
+    {
+      "id": "loginButton",
+      "type": "button",
+      "label": "Log In",
+      "action": "submitLoginForm",
+      "transitionsTo": "DashboardPage",
+      "locator": "button[type='submit']"
+    },
+    {
+      "id": "forgotPasswordLink",
+      "type": "link",
+      "label": "Forgot Password?",
+      "transitionsTo": "ForgotPasswordPage",
+      "locator": "a[href='/forgot-password']"
+    }
+  ]
+}
