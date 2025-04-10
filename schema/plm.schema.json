@@ -12,29 +12,59 @@
       "type": "string",
       "description": "The URL or route pattern for this page"
     },
+    "description": {
+      "type": "string",
+      "description": "Optional description of the page and its purpose"
+    },
     "components": {
       "type": "array",
       "items": {
         "type": "object",
         "required": ["id", "type"],
         "properties": {
-          "id": {
-            "type": "string",
-            "description": "Unique identifier for the component"
-          },
+          "id": { "type": "string" },
           "type": {
             "type": "string",
-            "enum": ["input", "button", "link", "select", "checkbox", "form", "modal"],
-            "description": "Type of the component"
+            "enum": [
+              "input", "button", "link", "select", "checkbox",
+              "form", "modal", "text", "icon_button", "numeric_input"
+            ]
           },
           "label": { "type": "string" },
           "required": { "type": "boolean" },
           "validation": { "type": "string" },
-          "action": { "type": "string" },
+          "action": {
+            "oneOf": [
+              { "type": "string" },
+              { "type": "object" }
+            ]
+          },
           "transitionsTo": { "type": "string" },
-          "locator": { "type": "string" }
-        }
+          "locator": { "type": "string" },
+          "description": { "type": "string" },
+          "intent": { "type": "string" },
+          "exampleInput": { "type": "string" },
+          "llm_hint": { "type": "string" },
+          "display_condition": { "type": "string" },
+          "value_binding": { "type": "string" },
+          "enabled_condition": { "type": "string" },
+          "binding": {
+            "type": "object",
+            "additionalProperties": { "type": "string" }
+          },
+          "interactions": {
+            "type": "object",
+            "properties": {
+              "on_input": { "type": "object" },
+              "on_enter": { "type": "object" },
+              "on_click": { "type": "object" }
+            },
+            "additionalProperties": true
+          }
+        },
+        "additionalProperties": true
       }
     }
-  }
+  },
+  "additionalProperties": false
 }
