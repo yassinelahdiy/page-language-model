@@ -19,7 +19,7 @@ PLM solves this by providing:
 
 It's declarative, JSON-based, and version-controlled — built for developers, testers, and LLM-powered tools.
 
-PLMs also support rich metadata like `description`, `intent`, `exampleInput`, and `llm_hint` to help LLMs understand the role and behavior of each component.
+PLMs also support rich metadata like `description`, `intent`, `exampleInput`, and `llmHint` to help LLMs understand the role and behavior of each component.
 
 ---
 
@@ -58,7 +58,7 @@ Here’s a basic example for a login page, using both structural fields and LLM-
       "label": "Log In",
       "action": "submitLoginForm",
       "transitionsTo": "DashboardPage",
-      "llm_hint": "Only enable after email and password fields are filled and valid",
+      "llmHint": "Only enable after email and password fields are filled and valid",
       "description": "Submits login credentials and redirects on success"
     }
   ]

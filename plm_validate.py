@@ -1,7 +1,14 @@
 import os
 import json
 import argparse
+import re
 from jsonschema import Draft7Validator, exceptions
+
+# --- Casing Helpers ---
+
+def is_snake_case(s): return re.fullmatch(r'[a-z]+(_[a-z]+)*', s or "") is not None
+def is_pascal_case(s): return re.fullmatch(r'[A-Z][a-zA-Z0-9]*', s or "") is not None
+def is_camel_case(s): return re.fullmatch(r'[a-z]+([A-Z][a-z0-9]*)*', s or "") is not None
 
 # --- Schema Validation ---
 
@@ -15,17 +22,34 @@ def validate_schema(plm_data, schema_data):
 
 # --- Soft Metadata Warnings ---
 
+def get_components_from_plm(plm_data):
+    if "components" in plm_data:
+        return plm_data["components"]
+    elif "component" in plm_data:
+        return [plm_data["component"]]
+    return []
+
 def check_metadata_warnings(plm_data):
     warnings = []
     KNOWN_TYPES = [
-    "input", "button", "link", "select", "checkbox", "form",
-    "modal", "text", "icon_button", "numeric_input"
+        "input", "button", "link", "select", "checkbox", "form",
+        "modal", "text", "icon_button", "numeric_input"
     ]
-    components = plm_data.get("components", [])
+    components = get_components_from_plm(plm_data)
 
     for component in components:
         cid = component.get("id", "<unknown>")
         ctype = component.get("type")
+        page_name = plm_data.get("page")
+        
+        if not is_snake_case(cid):
+            warnings.append(f"Component ID '{cid}' should be snake_case")
+
+        if ctype and not is_snake_case(ctype):
+            warnings.append(f"Component type '{ctype}' should be snake_case")
+
+        if page_name and not is_pascal_case(page_name):
+            warnings.append(f"Page name '{page_name}' should be PascalCase")
 
         if ctype and ctype not in KNOWN_TYPES:
             warnings.append(f"Component '{cid}' has unknown type: '{ctype}'")
@@ -35,8 +59,8 @@ def check_metadata_warnings(plm_data):
                 warnings.append(f"Component '{cid}' is missing: {field}")
 
         if component.get("type") in ["button", "modal", "form"]:
-            if "llm_hint" not in component:
-                warnings.append(f"Component '{cid}' is missing: llm_hint")
+            if "llmHint" not in component:
+                warnings.append(f"Component '{cid}' is missing: llmHint")
 
         if component.get("type") in ["input", "select"]:
             if "exampleInput" not in component:
@@ -49,6 +73,12 @@ def check_metadata_warnings(plm_data):
 def validate_file(file_path, schema):
     try:
         plm = load_json(file_path)
+
+        if "component" in plm:
+            print("🔧 Standalone component PLM detected.")
+        elif "page" in plm:
+            print(f"🧩 Page PLM detected: {plm.get('page')}")
+
         errors = validate_schema(plm, schema)
         warnings = check_metadata_warnings(plm)
 

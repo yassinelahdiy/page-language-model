@@ -1,0 +1,37 @@
+{
+    "component": {
+      "id": "create_deal_modal",
+      "type": "modal",
+      "variant": "form",
+      "description": "Reusable modal used to create a new deal. Contains name and funding type fields and triggers a transition to the deal details page on submit.",
+      "llmHint": "Should only appear when the user clicks 'Create New Deal' and has sufficient permissions.",
+      "fields": [
+        {
+          "id": "deal_name",
+          "type": "input",
+          "label": "Deal Name",
+          "required": true,
+          "exampleInput": "Spring Promo - Midwest",
+          "intent": "Name the new deal"
+        },
+        {
+          "id": "funding_type",
+          "type": "select",
+          "label": "Funding Type",
+          "options": ["Loan", "Lease"],
+          "required": true,
+          "intent": "Choose how the deal will be structured"
+        }
+      ],
+      "actions": {
+        "onSubmit": {
+          "type": "create_deal",
+          "transitionsTo": "DealDetailsPage"
+        },
+        "onCancel": {
+          "type": "close_modal"
+        }
+      }
+    }
+  }
+  

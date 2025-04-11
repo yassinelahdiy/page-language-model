@@ -30,8 +30,8 @@ A typical PLM file includes the following structure:
 - **Each component** can include:
   - `id`: unique identifier
   - `type`: input, button, link, modal, etc.
-  - `label`, `icon`, or `value_binding`
-  - `interactions`: user-driven actions (`on_input`, `on_click`, etc.)
+  - `label`, `icon`, or `valueBinding`
+  - `interactions`: user-driven actions (`onInput`, `onClick`, etc.)
   - `action`: what happens when the component is triggered
   - `validation`: requirements or conditions
   - `transitionsTo`: what page comes next (optional)
@@ -54,9 +54,9 @@ Supported metadata fields include:
 | `description`     | Free-form explanation of the component’s purpose                       |
 | `intent`          | A short summary of the user goal (e.g., "Search for an account by ID") |
 | `exampleInput`    | Example value a user might enter                                       |
-| `llm_hint`        | Specific guidance for LLMs (e.g., "Only enable if field is numeric")    |
-| `display_condition` | When/why this component should appear                                |
-| `binding` / `value_binding` | Dynamic values sourced from app state or context             |
+| `llmHint`         | Specific guidance for LLMs (e.g., "Only enable if field is numeric")    |
+| `displayCondition` | When/why this component should appear                                |
+| `binding` / `valueBinding` | Dynamic values sourced from app state or context             |
 
 These fields are optional, but recommended for any PLMs intended for intelligent automation, AI-generated testing, or dynamic flow analysis.
 

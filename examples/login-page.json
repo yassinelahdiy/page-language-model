@@ -4,7 +4,7 @@
   "description": "Login screen for users to access the application. Includes input fields, basic validation, and success/error flows.",
   "components": [
     {
-      "id": "emailInput",
+      "id": "email_input",
       "type": "input",
       "label": "Email",
       "required": true,
@@ -12,11 +12,11 @@
       "exampleInput": "jon@example.com",
       "description": "User's login email address. Must follow standard email format.",
       "intent": "Capture the user's email for login",
-      "llm_hint": "Do not enable submit button unless this and password are valid.",
+      "llmHint": "Do not enable submit button unless this and password are valid.",
       "locator": "#email"
     },
     {
-      "id": "passwordInput",
+      "id": "password_input",
       "type": "input",
       "label": "Password",
       "required": true,
@@ -24,22 +24,22 @@
       "exampleInput": "mypassword123",
       "description": "User's password used for authentication.",
       "intent": "Collect password securely for login",
-      "llm_hint": "Should be masked. Submit button should not enable if this is empty.",
+      "llmHint": "Should be masked. Submit button should not enable if this is empty.",
       "locator": "#password"
     },
     {
-      "id": "loginButton",
+      "id": "login_button",
       "type": "button",
       "label": "Log In",
-      "enabled_condition": "emailInput and passwordInput are valid",
-      "action": "submitLoginForm",
+      "enabledCondition": "emailInput and passwordInput are valid",
+      "action": "submit_login_form",
       "transitionsTo": "DashboardPage",
       "description": "Submits the login form and redirects on success.",
-      "llm_hint": "Disable this button unless inputs are filled and valid.",
+      "llmHint": "Disable this button unless inputs are filled and valid.",
       "locator": "button[type='submit']"
     },
     {
-      "id": "forgotPasswordLink",
+      "id": "forgot_password_link",
       "type": "link",
       "label": "Forgot Password?",
       "transitionsTo": "ForgotPasswordPage",

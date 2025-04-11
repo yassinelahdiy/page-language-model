@@ -4,60 +4,60 @@
   "description": "Main user dashboard after login. Displays a welcome message, sidebar navigation, and a list of recent deals. Includes a button to create a new deal, triggering a modal form.",
   "components": [
     {
-      "id": "sidebarNav",
+      "id": "sidebar_nav",
       "type": "sidebar",
       "description": "Left navigation sidebar with links to key sections.",
-      "nav_items": [
+      "navItems": [
         {
           "id": "nav_home",
           "label": "Home",
           "icon": "home",
-          "target_url": "/dashboard",
+          "targetUrl": "/dashboard",
           "intent": "Return to dashboard home"
         },
         {
           "id": "nav_deals",
           "label": "My Deals",
           "icon": "briefcase",
-          "target_url": "/deals",
+          "targetUrl": "/deals",
           "intent": "View list of deals"
         },
         {
           "id": "nav_profile",
           "label": "Profile",
           "icon": "user",
-          "target_url": "/profile",
+          "targetUrl": "/profile",
           "intent": "Go to account settings"
         }
       ]
     },
     {
-      "id": "welcomeMessage",
+      "id": "welcome_message",
       "type": "text",
-      "value_binding": "Welcome back, {{user_first_name}}!",
+      "valueBinding": "Welcome back, {{user_first_name}}!",
       "description": "Personalized greeting using user's first name.",
-      "llm_hint": "Dynamically rendered from logged-in user context"
+      "llmHint": "Dynamically rendered from logged-in user context"
     },
     {
-      "id": "createDealButton",
+      "id": "create_deal_button",
       "type": "button",
       "label": "Create New Deal",
       "action": {
         "type": "open_modal",
-        "target_id": "createDealModal"
+        "targetId": "createDealModal"
       },
       "description": "Opens modal to begin deal creation flow.",
       "intent": "Start a new deal process"
     },
     {
-      "id": "recentDealsList",
+      "id": "recent_deals_list",
       "type": "card_list",
-      "binding": "recentDeals",
+      "binding": "recent_deals",
       "description": "Displays cards for user's recent deals, pulled from API.",
-      "llm_hint": "Dynamically populated list, may be empty on first login"
+      "llmHint": "Dynamically populated list, may be empty on first login"
     },
     {
-      "id": "createDealModal",
+      "id": "create_deal_modal",
       "type": "modal",
       "variant": "form",
       "description": "Modal containing the form to create a new deal",
@@ -80,11 +80,11 @@
         }
       ],
       "actions": {
-        "on_submit": {
+        "onSubmit": {
           "type": "create_deal",
           "transitionsTo": "DealDetailsPage"
         },
-        "on_cancel": {
+        "onCancel": {
           "type": "close_modal"
         }
       }
