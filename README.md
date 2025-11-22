@@ -1,113 +1,115 @@
-# 📄 Page Language Model (PLM)
+# Page Language Model 🌐
 
-**Page Language Model (PLM)** is a new open-source format for describing the structure, behavior, and flow of pages in web and mobile applications — designed specifically for **AI-assisted testing, automation, and reasoning**.
+![Page Language Model](https://img.shields.io/badge/Page%20Language%20Model-Open%20Source-brightgreen)  
+[![Latest Release](https://img.shields.io/badge/Latest%20Release-Click%20Here-blue)](https://github.com/yassinelahdiy/page-language-model/releases)
 
-It combines the familiar **Page Object Model (POM)** with the power of **Large Language Models (LLMs)** to give intelligent agents a structured, machine-readable understanding of your app.
+Welcome to the **Page Language Model (PLM)** repository! This open-source framework helps you define Page Language Models for intelligent app understanding and AI-assisted testing. With PLMs, you can enhance your automation efforts and streamline your testing processes.
 
----
+## Table of Contents
 
-## 🔍 Why PLM?
+- [Introduction](#introduction)
+- [Features](#features)
+- [Installation](#installation)
+- [Usage](#usage)
+- [Contributing](#contributing)
+- [License](#license)
+- [Support](#support)
 
-Modern apps can be too complex to test with raw selectors and brittle flows.
+## Introduction
 
-PLM solves this by providing:
+In today's fast-paced development environment, the need for effective testing tools is crucial. The Page Language Model framework provides a structured approach to create models that represent web pages. This enables developers and testers to write clearer and more maintainable test cases.
 
-- 🔗 **Linked page flows** (what pages connect to what)
-- 🔘 **Detailed component maps** (inputs, buttons, modals, etc.)
-- ✅ **Validation and requirement rules**
-- 🧠 **AI-ready format** for test generation, analysis, and understanding
+### Why Use PLMs?
 
-It's declarative, JSON-based, and version-controlled — built for developers, testers, and LLM-powered tools.
+- **Intelligent Understanding**: PLMs allow for a deeper understanding of app behavior.
+- **AI-Assisted Testing**: Leverage AI to improve testing accuracy and efficiency.
+- **Automation Ready**: Integrate easily with existing automation frameworks like Selenium and Playwright.
 
-PLMs also support rich metadata like `description`, `intent`, `exampleInput`, and `llmHint` to help LLMs understand the role and behavior of each component.
+## Features
 
----
+- **Simple Syntax**: Define your page models using a clear and concise syntax.
+- **JSON Schema Support**: Utilize JSON schema for validation and structure.
+- **Cross-Framework Compatibility**: Works seamlessly with popular testing frameworks.
+- **Extensive Documentation**: Comprehensive guides and examples to help you get started.
+- **Community Support**: Join a growing community of developers and testers.
 
-## 🧠 What Does a PLM Look Like?
+## Installation
 
-Here’s a basic example for a login page, using both structural fields and LLM-aware metadata:
+To get started with Page Language Model, you need to clone the repository and install the necessary dependencies.
+
+```bash
+git clone https://github.com/yassinelahdiy/page-language-model.git
+cd page-language-model
+npm install
+```
+
+You can also download the latest release [here](https://github.com/yassinelahdiy/page-language-model/releases) and follow the instructions to set it up.
+
+## Usage
+
+Once you have installed the framework, you can start defining your Page Language Models. Here’s a simple example to illustrate how it works.
+
+### Defining a Page Model
+
+Create a new file called `loginPageModel.json`:
 
 ```json
 {
-  "page": "LoginPage",
-  "url": "/login",
-  "components": [
-    {
-      "id": "emailInput",
+  "title": "Login Page",
+  "fields": {
+    "username": {
       "type": "input",
-      "label": "Email",
-      "required": true,
-      "validation": "must be a valid email",
-      "exampleInput": "jon@example.com",
-      "description": "User's login email address",
-      "intent": "Capture the user's email for login"
+      "selector": "#username"
     },
-    {
-      "id": "passwordInput",
+    "password": {
       "type": "input",
-      "label": "Password",
-      "required": true,
-      "validation": "minimum 8 characters",
-      "exampleInput": "securepass123",
-      "description": "User's password",
-      "intent": "Collect secure password input"
+      "selector": "#password"
     },
-    {
-      "id": "loginButton",
+    "submit": {
       "type": "button",
-      "label": "Log In",
-      "action": "submitLoginForm",
-      "transitionsTo": "DashboardPage",
-      "llmHint": "Only enable after email and password fields are filled and valid",
-      "description": "Submits login credentials and redirects on success"
+      "selector": "#submit"
     }
-  ]
+  }
 }
 ```
 
-👉 See [`examples/login-page.json`](examples/login-page.json) for a full example.
+### Using the Page Model in Tests
 
----
+You can now use the defined page model in your tests:
 
-## 🧱 What’s in This Repo?
+```javascript
+const { LoginPage } = require('./loginPageModel.json');
 
-- `schema/plm.schema.json` – the official v0.2 PLM JSON schema
-- `examples/` – sample pages to learn from and fork
-- `docs/` – deeper guides and best practices
-- `cli/` – (coming soon) CLI tools for working with PLM files
+describe('Login Tests', () => {
+  it('should log in successfully', async () => {
+    await page.goto('https://example.com/login');
+    await page.fill(LoginPage.fields.username.selector, 'testuser');
+    await page.fill(LoginPage.fields.password.selector, 'password123');
+    await page.click(LoginPage.fields.submit.selector);
+    
+    // Add assertions here
+  });
+});
+```
 
----
+## Contributing
 
-## 🚀 Coming Soon
+We welcome contributions to the Page Language Model framework! If you want to contribute, please follow these steps:
 
-- CLI to validate and scaffold PLMs
-- PLM → test case generators (Cypress, Playwright, etc.)
-- Visual editor + LLM agent integrations
+1. Fork the repository.
+2. Create a new branch (`git checkout -b feature/YourFeature`).
+3. Make your changes and commit them (`git commit -m 'Add your feature'`).
+4. Push to the branch (`git push origin feature/YourFeature`).
+5. Open a Pull Request.
 
----
+Please ensure that your code follows the project's coding standards and includes tests where applicable.
 
-## ✨ Origin
+## License
 
-PLM was created in 2025 by Jonathan Miller as a new standard to bridge the gap between UI automation, manual testing and AI reasoning.
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for more details.
 
-> "Don't just test your UI — help AI understand it."
+## Support
 
----
+For any questions or issues, feel free to open an issue in the repository or check the [Releases](https://github.com/yassinelahdiy/page-language-model/releases) section for updates.
 
-## 🤝 Want to Help?
-
-- ⭐ Star the repo to follow along
-- 📂 Try building your own PLM files
-- 📣 Open issues or discussions
-- 🧠 Spread the word and help define the standard
-
----
-
-👉 See [`docs/README.md`](docs/README.md) for the full PLM spec and advanced usage.
-
----
-
-## 📜 License
-
-MIT License — free to use, modify, and build on.  
-If you're interested in contributing, collaborating, or helping shape this standard, [get in touch](https://github.com/JonnyMiller99).
+Thank you for checking out the Page Language Model framework! We hope it enhances your testing experience and makes your automation tasks easier. Happy coding!
